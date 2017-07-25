@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.exercises;
+package me.janeldq.algorithms.assignments.percolation;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 

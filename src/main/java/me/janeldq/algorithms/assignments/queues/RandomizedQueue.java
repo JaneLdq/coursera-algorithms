@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.exercises;
+package me.janeldq.algorithms.assignments.queues;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
