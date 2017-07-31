@@ -7,5 +7,5 @@ package me.janeldq.algorithms.sort;
  *
  */
 public class InsertionSort {
-
+	
 }
