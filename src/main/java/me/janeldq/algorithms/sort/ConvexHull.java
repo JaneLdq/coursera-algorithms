@@ -8,7 +8,6 @@ package me.janeldq.algorithms.sort;
 public class ConvexHull {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
