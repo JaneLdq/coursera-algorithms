@@ -1,7 +1,5 @@
 # Collection, Iterator and List in Java
 
-[TOC]
-
 ---
 
 ## Collection
