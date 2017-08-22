@@ -9,11 +9,20 @@ package me.janeldq.algorithms.sort;
  * 3. Counting from the low end, strike out the kth number not yet struck out, and write it down at the end of a separate list.
  * 4. Repeat from step 2 until all the numbers have been struck out.
  * 5. The sequence of numbers written down in step 3 is now a random permutation of the original numbers.
+ * 
  * @author Jane
  *
  */
 public class FisherYatesShuffle {
 
+	public static <T extends Comparable<? super T>> void shuffle(T[] arr) {
+		int len = arr.length;
+		for (int i = 0; i < len; i++) {
+			int pos = (int) (Math.random() * (len - i));
+			Util.swap(arr, pos, len-i-1);
+		}
+	}
+	
 	public static void main(String[] args) {
 
 	}
