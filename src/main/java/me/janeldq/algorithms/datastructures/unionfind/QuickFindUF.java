@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.unionfind;
+package me.janeldq.algorithms.datastructures.unionfind;
 
 /**
  * A union-find data type which supports union and find operations。

@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.stackAndQueue;
+package me.janeldq.algorithms.datastructures.list;
 
 /**
  * This interface defines the basic operations of a list

@@ -1,17 +1,8 @@
-package me.janeldq.algorithms.unionfind;
+package me.janeldq.algorithms.datastructures.unionfind;
 
-/**
- * A union-find data type which supports union and find operations。
- * Initializing a data structrue with n nodes takes linear time.
- * The union, find and connected operations take linear time(in the worst case). And
- * the count operation takes constant time.
- * 
- * @author Jane
- *
- */
-public class QuickUnionUF extends AbstractUF {
-	
-	public QuickUnionUF(int n) {
+public class PathCompressionQuickUnionUF extends AbstractUF {
+
+	public PathCompressionQuickUnionUF(int n) {
 		super(n);
 	}
 	
@@ -28,6 +19,12 @@ public class QuickUnionUF extends AbstractUF {
 		int next = this.nodes[i];
 		while(this.nodes[next] != next) {
 			next = this.nodes[next];
+		}
+		int tmp = i;
+		while(this.nodes[i] != i) {
+			tmp = this.nodes[i];
+			this.nodes[i] = next;
+			i = tmp;
 		}
 		return next;
 	}
@@ -46,18 +43,13 @@ public class QuickUnionUF extends AbstractUF {
 	}			
 
 	public static void main(String[] args) {
-		QuickUnionUF q = new QuickUnionUF(10);
+		PathCompressionQuickUnionUF q = new PathCompressionQuickUnionUF(10);
 		q.union(1, 5);
 		q.union(2, 7);
 		q.union(7, 8);
 		q.union(5, 6);
-		q.union(1, 7);
+		q.union(1, 2);
+		q.union(8, 3);
 		q.display();
-		System.out.println();
-		System.out.println(q.find(1));
-		System.out.println(q.find(2));
-		System.out.println(q.find(7));
-		System.out.println("Count: " + q.count());
 	}
-
 }

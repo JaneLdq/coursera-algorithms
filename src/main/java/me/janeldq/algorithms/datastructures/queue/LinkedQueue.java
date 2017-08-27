@@ -1,5 +1,4 @@
-package me.janeldq.algorithms.stackAndQueue;
-
+package me.janeldq.algorithms.datastructures.queue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

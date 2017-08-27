@@ -1,5 +1,4 @@
-package me.janeldq.algorithms.stackAndQueue;
-
+package me.janeldq.algorithms.datastructures.stack;
 /**
  * This interface defines the basic operations of a stack
  * @author Jane

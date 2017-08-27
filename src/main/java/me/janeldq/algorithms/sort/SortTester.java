@@ -14,7 +14,8 @@ public class SortTester {
 			new BubbleSort(),
 			new ShellSort(),
 			new MergeSort(),
-			new QuickSort()
+			new QuickSort(),
+			new HeapSort()
 	};
 	
 	public static void main(String[] args) {

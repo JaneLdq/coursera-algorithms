@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.unionfind;
+package me.janeldq.algorithms.datastructures.unionfind;
 
 /**
  * Union Find Class with abstract interfaces

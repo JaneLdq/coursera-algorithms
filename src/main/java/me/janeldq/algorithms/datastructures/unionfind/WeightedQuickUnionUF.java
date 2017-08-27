@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.unionfind;
+package me.janeldq.algorithms.datastructures.unionfind;
 /**
  * Weighted Quick Union
  * This implmentatation uses weighted quick union by size (without path compression).

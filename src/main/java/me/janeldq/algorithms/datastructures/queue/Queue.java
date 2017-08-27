@@ -1,4 +1,4 @@
-package me.janeldq.algorithms.stackAndQueue;
+package me.janeldq.algorithms.datastructures.queue;
 
 /**
  * This interface defines the basic operations of a queue;
