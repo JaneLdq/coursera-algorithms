@@ -95,9 +95,9 @@ Quicksort(array) {
 * 不稳定
 
 
-  [1]: http://o8bxo46sq.bkt.clouddn.com/insertion-sort.jpg
-  [2]: http://o8bxo46sq.bkt.clouddn.com/selection-sort.jpg
+  [1]: images/insertion-sort.jpg
+  [2]: images/selection-sort.jpg
   [3]: https://en.wikipedia.org/wiki/Shellsort
-  [4]: http://o8bxo46sq.bkt.clouddn.com/shellsort.jpg
-  [5]: http://o8bxo46sq.bkt.clouddn.com/mergesort.jpg
-  [6]: http://o8bxo46sq.bkt.clouddn.com/quicksort.jpg
+  [4]: images/shellsort.jpg
+  [5]: images/mergesort.jpg
+  [6]: images/quicksort.jpg

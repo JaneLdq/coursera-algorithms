@@ -88,9 +88,9 @@ public int find(int i) {
 上文提到的算法可以在[Algorithms - Case Study: Union-Find][6]中找到官方实现，以作参考。
 
 
-  [1]: http://o8bxo46sq.bkt.clouddn.com/union-tree.jpg
-  [2]: http://o8bxo46sq.bkt.clouddn.com/quick-find.jpg
-  [3]: http://o8bxo46sq.bkt.clouddn.com/quick-union.jpg
-  [4]: http://o8bxo46sq.bkt.clouddn.com/weighted-quickunion.jpg
-  [5]: http://o8bxo46sq.bkt.clouddn.com/path-compression.jpg
+  [1]: images/union-tree.jpg
+  [2]: images/quick-find.jpg
+  [3]: images/quick-union.jpg
+  [4]: images/weighted-quickunion.jpg
+  [5]: images/path-compression.jpg
   [6]: http://algs4.cs.princeton.edu/15uf/

@@ -63,6 +63,6 @@ public interface MinHeap<T extends Comparable<? super T>> {
 * 由以上定理可得插入N项时间复杂度为O(N)
 
 
-  [1]: http://o8bxo46sq.bkt.clouddn.com/heap.jpg
-  [2]: http://o8bxo46sq.bkt.clouddn.com/heap-percolateup.jpg
-  [3]: http://o8bxo46sq.bkt.clouddn.com/heap-percolatedown-2.jpg
+  [1]: images/heap.jpg
+  [2]: images/heap-percolateup.jpg
+  [3]: images/heap-percolatedown-2.jpg
