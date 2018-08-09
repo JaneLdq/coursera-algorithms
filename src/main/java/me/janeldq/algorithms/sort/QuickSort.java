@@ -22,8 +22,8 @@ public class QuickSort implements Sort {
 				T pivot = findPivot(arr, lo, hi);
 				int i = lo+1, j = hi-2;
 				while(true) {
-					while (arr[i].compareTo(pivot) < 0) i++;
-					while (arr[j].compareTo(pivot) > 0) j--;
+					while (arr[++i].compareTo(pivot) < 0) {}
+					while (arr[--j].compareTo(pivot) > 0) {}
 					if (i > j)
 						break;
 					Util.swap(arr, i, j);
@@ -53,5 +53,12 @@ public class QuickSort implements Sort {
 	public String name() {
 		return "Quick Sort";
 	}
+
+	public static void main(String[] args) {
+	    QuickSort qs = new QuickSort();
+	    Integer[] nums = {3, 3, 3, 3, 3, 3, 3, 3, 3};
+	    qs.sort(nums);
+        Util.display(nums);
+    }
 
 }
