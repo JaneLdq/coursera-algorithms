@@ -7,10 +7,21 @@ package me.janeldq.algorithms.sort;
  *
  */
 public class QuickSort implements Sort {
+
+	private static QuickSort instance;
+
+	private QuickSort() {}
+
+	public static QuickSort getInstance() {
+	    if (instance == null) {
+	        instance = new QuickSort();
+        }
+        return instance;
+    }
 	
 	private static int N = 4;
 	
-	private Sort insertion = new InsertionSort();
+	private Sort insertion = InsertionSort.getInstance();
 
 	public <T extends Comparable<? super T>> void sort(T[] arr) {
 		this.quicksort(arr, 0, arr.length-1);
@@ -49,16 +60,5 @@ public class QuickSort implements Sort {
 		Util.swap(arr, mid, hi-1);
 		return arr[hi-1];
 	}
-	
-	public String name() {
-		return "Quick Sort";
-	}
-
-	public static void main(String[] args) {
-	    QuickSort qs = new QuickSort();
-	    Integer[] nums = {3, 3, 3, 3, 3, 3, 3, 3, 3};
-	    qs.sort(nums);
-        Util.display(nums);
-    }
 
 }

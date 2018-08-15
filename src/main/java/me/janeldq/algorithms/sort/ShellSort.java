@@ -7,9 +7,16 @@ package me.janeldq.algorithms.sort;
  */
 public class ShellSort implements Sort{
 
-	public static void main(String[] args) {
+	private static ShellSort instance;
 
-	}
+	private ShellSort() {}
+
+	public static ShellSort getInstance() {
+	    if (instance == null) {
+	        instance = new ShellSort();
+        }
+        return instance;
+    }
 
 	public <T extends Comparable<? super T>> void sort(T[] arr) {
 		int h = arr.length / 2;
@@ -22,10 +29,6 @@ public class ShellSort implements Sort{
 			}
 			h = h / 2;
 		}
-	}
-
-	public String name() {
-		return "Shell Sort";
 	}
 
 }

@@ -9,13 +9,13 @@ package me.janeldq.algorithms.sort;
 public class SortTester {
 	
 	private static Sort[] sorters = {
-			new InsertionSort(),
-			new SelectionSort(),
-			new BubbleSort(),
-			new ShellSort(),
-			new MergeSort(),
-			new QuickSort(),
-			new HeapSort()
+			InsertionSort.getInstance(),
+			SelectionSort.getInstance(),
+			BubbleSort.getInstance(),
+			ShellSort.getInstance(),
+			MergeSort.getInstance(),
+			QuickSort.getInstance(),
+			HeapSort.getInstance()
 	};
 	
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class SortTester {
 		
 		for (int k = 0; k < sorters.length; k++) {
 			Sort sorter = sorters[k];
-			System.out.println(sorter.name() + ":");
+			System.out.println(sorter.getClass() + ":");
 			
 			// shuffle
 			FisherYatesShuffle.shuffle(arr);

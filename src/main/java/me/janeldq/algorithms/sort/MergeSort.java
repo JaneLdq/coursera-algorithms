@@ -8,11 +8,21 @@ package me.janeldq.algorithms.sort;
  */
 public class MergeSort implements Sort {
 
+	private static MergeSort instance;
+
+	private MergeSort() {}
+
+	public static MergeSort getInstance() {
+	    if (instance == null) {
+	        instance = new MergeSort();
+        }
+        return instance;
+    }
+
 	@SuppressWarnings("unchecked")
 	public <T extends Comparable<? super T>> void sort(T[] arr) {
 		T[] tmp = (T[]) new Comparable[arr.length];
 		sort(arr, tmp, 0, arr.length-1);
-
 	}
 
 	public <T extends Comparable<? super T>> void sort(T[] arr, T[] tmp, int lo, int hi) {
@@ -38,11 +48,6 @@ public class MergeSort implements Sort {
 				arr[j] = tmp[q++];
 			}
 		}
-	}
-	
-
-	public String name() {
-		return "Merge Sort";
 	}
 
 }

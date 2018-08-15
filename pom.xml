@@ -21,6 +21,12 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/edu.princeton.cs/algs4 -->
+    <dependency>
+      <groupId>edu.princeton.cs</groupId>
+      <artifactId>algs4</artifactId>
+      <version>1.0.3</version>
+    </dependency>
   </dependencies>
 
 

@@ -8,6 +8,17 @@ package me.janeldq.algorithms.sort;
  */
 public class HeapSort implements Sort {
 
+	private static HeapSort instance;
+
+	private HeapSort() {}
+
+	public static HeapSort getInstance() {
+		if (instance == null) {
+			instance = new HeapSort();
+		}
+		return instance;
+	}
+
 	public <T extends Comparable<? super T>> void sort(T[] arr) {
 
 		for (int i = arr.length / 2; i >= 0; i--) {
@@ -34,10 +45,6 @@ public class HeapSort implements Sort {
 			}
 		}
 		data[index] = tmp;
-	}
-
-	public String name() {
-		return "Heap Sort";
 	}
 
 }

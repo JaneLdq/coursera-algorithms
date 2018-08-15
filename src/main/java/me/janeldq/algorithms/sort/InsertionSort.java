@@ -7,6 +7,17 @@ package me.janeldq.algorithms.sort;
  *
  */
 public class InsertionSort implements Sort {
+
+	private static InsertionSort instance;
+
+	private InsertionSort() {}
+
+	public static InsertionSort getInstance() {
+		if (instance == null) {
+			instance = new InsertionSort();
+		}
+		return instance;
+	}
 	
 	public <T extends Comparable<? super T>> void sort(T[] arr) {
 		int j;
@@ -17,9 +28,5 @@ public class InsertionSort implements Sort {
 			}
 			arr[j] = tmp;
 		}
-	}
-
-	public String name() {
-		return "Insertion Sort";
 	}
 }

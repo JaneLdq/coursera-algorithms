@@ -8,6 +8,17 @@ package me.janeldq.algorithms.sort;
  */
 public class BubbleSort implements Sort {
 
+	private static BubbleSort instance;
+
+	private BubbleSort() {}
+
+	public static BubbleSort getInstance() {
+		if (instance == null) {
+			instance = new BubbleSort();
+		}
+		return instance;
+	}
+
 	public <T extends Comparable<? super T>> void sort(T[] arr) {
 		for (int i = arr.length-1; i > 0; i--) {
 			for (int j = 0; j < i; j++) {
@@ -16,10 +27,6 @@ public class BubbleSort implements Sort {
 				}
 			}
 		}
-	}
-
-	public String name() {
-		return "Bubble Sort";
 	}
 
 }
