@@ -31,7 +31,7 @@ public class QuickSort implements Sort {
 		if (hi - lo >= N) {
 			if (lo < hi) {
 				T pivot = findPivot(arr, lo, hi);
-				int i = lo+1, j = hi-2;
+				int i = lo, j = hi-1;
 				while(true) {
 					while (arr[++i].compareTo(pivot) < 0) {}
 					while (arr[--j].compareTo(pivot) > 0) {}
