@@ -8,24 +8,13 @@ package me.janeldq.algorithms.sort;
  */
 public class MergeSort implements Sort {
 
-	private static MergeSort instance;
-
-	private MergeSort() {}
-
-	public static MergeSort getInstance() {
-	    if (instance == null) {
-	        instance = new MergeSort();
-        }
-        return instance;
-    }
-
 	@SuppressWarnings("unchecked")
-	public <T extends Comparable<? super T>> void sort(T[] arr) {
+	public static <T extends Comparable<? super T>> void sort(T[] arr) {
 		T[] tmp = (T[]) new Comparable[arr.length];
 		sort(arr, tmp, 0, arr.length-1);
 	}
 
-	public <T extends Comparable<? super T>> void sort(T[] arr, T[] tmp, int lo, int hi) {
+	public static <T extends Comparable<? super T>> void sort(T[] arr, T[] tmp, int lo, int hi) {
 		if (lo < hi) {
 			int mid = (lo + hi) / 2;
 			sort(arr, tmp, lo, mid);
@@ -34,7 +23,7 @@ public class MergeSort implements Sort {
 		}
 	}
 	
-	private <T extends Comparable<? super T>> void merge(T[] arr, T[] tmp, int lo, int mid, int hi) {
+	private static <T extends Comparable<? super T>> void merge(T[] arr, T[] tmp, int lo, int mid, int hi) {
 		for (int i = lo; i <= hi; i++) {
 			tmp[i] = arr[i];
 		}

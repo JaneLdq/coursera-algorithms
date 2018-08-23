@@ -1,7 +1,11 @@
 package me.janeldq.algorithms.sort;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public interface Sort {
 	
-	<T extends Comparable<? super T>> void sort(T[] arr);
+	static <T extends Comparable<? super T>> void sort(T[] arr) {
+	    throw new NotImplementedException();
+	}
 
 }

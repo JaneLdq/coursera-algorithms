@@ -1,5 +1,7 @@
 package me.janeldq.algorithms.sort;
 
+import java.lang.reflect.Method;
+
 /***
  * Sort Test
  * 
@@ -8,22 +10,22 @@ package me.janeldq.algorithms.sort;
  */
 public class SortTester {
 	
-	private static Sort[] sorters = {
-			InsertionSort.getInstance(),
-			SelectionSort.getInstance(),
-			BubbleSort.getInstance(),
-			ShellSort.getInstance(),
-			MergeSort.getInstance(),
-			QuickSort.getInstance(),
-			HeapSort.getInstance()
+	private static Class[] sorters = {
+			InsertionSort.class,
+			SelectionSort.class,
+			BubbleSort.class,
+			ShellSort.class,
+			MergeSort.class,
+			QuickSort.class,
+			HeapSort.class
 	};
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Integer[] arr = {0,1,2,3,4,5,6,7,8,9};
 		
 		for (int k = 0; k < sorters.length; k++) {
-			Sort sorter = sorters[k];
-			System.out.println(sorter.getClass() + ":");
+			Class clazz = sorters[k];
+			System.out.println(clazz.getName() + ":");
 			
 			// shuffle
 			FisherYatesShuffle.shuffle(arr);
@@ -31,7 +33,8 @@ public class SortTester {
 			Util.display(arr);
 			
 			// sort
-			sorter.sort(arr);
+			Method method = clazz.getDeclaredMethod("sort", Comparable[].class);
+			method.invoke(null, new Object[]{arr});
 			
 			System.out.println();
 			Util.display(arr);

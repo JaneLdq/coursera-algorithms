@@ -8,18 +8,7 @@ package me.janeldq.algorithms.sort;
  */
 public class SelectionSort implements Sort{
 
-	private static SelectionSort instance;
-
-	private SelectionSort() {}
-
-	public static SelectionSort getInstance() {
-		if (instance == null) {
-			instance = new SelectionSort();
-		}
-		return instance;
-	}
-
-	public <T extends Comparable<? super T>> void sort(T[] arr) {
+	public static <T extends Comparable<? super T>> void sort(T[] arr) {
 		for (int i = 0; i < arr.length; i++) {
 			int min = i;
 			int j;
@@ -30,10 +19,6 @@ public class SelectionSort implements Sort{
 			}
 			Util.swap(arr, min, i);
 		}
-	}
-
-	public String name() {
-		return "Selection Sort";
 	}
 
 }

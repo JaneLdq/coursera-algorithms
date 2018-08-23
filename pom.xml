@@ -14,13 +14,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>org.coursera.algs4</id>
-      <name>Algs4 coursera course custom repository</name>
-      <url>https://raw.github.com/slok/algs4-mvn-repo/master</url>
-    </repository>
-  </repositories>
+  <!--<repositories>-->
+    <!--<repository>-->
+      <!--<id>org.coursera.algs4</id>-->
+      <!--<name>Algs4 coursera course custom repository</name>-->
+      <!--<url>https://raw.github.com/slok/algs4-mvn-repo/master</url>-->
+    <!--</repository>-->
+  <!--</repositories>-->
 
   <dependencies>
     <dependency>
@@ -30,16 +30,16 @@
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/edu.princeton.cs/algs4 -->
-    <!--<dependency>-->
-      <!--<groupId>edu.princeton.cs</groupId>-->
-      <!--<artifactId>algs4</artifactId>-->
-      <!--<version>1.0.3</version>-->
-    <!--</dependency>-->
     <dependency>
-      <groupId>edu.princeton.cs.algs4</groupId>
+      <groupId>edu.princeton.cs</groupId>
       <artifactId>algs4</artifactId>
-      <version>1.0</version>
+      <version>1.0.3</version>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>edu.princeton.cs.algs4</groupId>-->
+      <!--<artifactId>algs4</artifactId>-->
+      <!--<version>1.0</version>-->
+    <!--</dependency>-->
 
   </dependencies>
 

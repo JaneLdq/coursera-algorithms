@@ -8,18 +8,7 @@ package me.janeldq.algorithms.sort;
  */
 public class HeapSort implements Sort {
 
-	private static HeapSort instance;
-
-	private HeapSort() {}
-
-	public static HeapSort getInstance() {
-		if (instance == null) {
-			instance = new HeapSort();
-		}
-		return instance;
-	}
-
-	public <T extends Comparable<? super T>> void sort(T[] arr) {
+	public static <T extends Comparable<? super T>> void sort(T[] arr) {
 
 		for (int i = arr.length / 2; i >= 0; i--) {
 			percolateDown(arr, i, arr.length);
@@ -30,7 +19,7 @@ public class HeapSort implements Sort {
 		}
 	}
 	
-	private <T extends Comparable<? super T>> void percolateDown(T[] data, int index, int n) {
+	private static <T extends Comparable<? super T>> void percolateDown(T[] data, int index, int n) {
 		int child;
 		T tmp = data[index];
 		for(; index * 2 + 1 < n; index = child) {

@@ -8,26 +8,13 @@ package me.janeldq.algorithms.sort;
  */
 public class QuickSort implements Sort {
 
-	private static QuickSort instance;
-
-	private QuickSort() {}
-
-	public static QuickSort getInstance() {
-	    if (instance == null) {
-	        instance = new QuickSort();
-        }
-        return instance;
-    }
-	
 	private static int N = 4;
-	
-	private Sort insertion = InsertionSort.getInstance();
 
-	public <T extends Comparable<? super T>> void sort(T[] arr) {
-		this.quicksort(arr, 0, arr.length-1);
+	public static <T extends Comparable<? super T>> void sort(T[] arr) {
+		quicksort(arr, 0, arr.length-1);
 	}
 
-	private <T extends Comparable<? super T>> void quicksort(T[] arr, int lo, int hi) {
+	private static <T extends Comparable<? super T>> void quicksort(T[] arr, int lo, int hi) {
 		if (hi - lo >= N) {
 			if (lo < hi) {
 				T pivot = findPivot(arr, lo, hi);
@@ -44,11 +31,11 @@ public class QuickSort implements Sort {
 				quicksort(arr, i+1, hi);
 			}
 		} else {
-			insertion.sort(arr);
+			InsertionSort.sort(arr);
 		}
 	}
 	
-	private <T extends Comparable<? super T>> T findPivot(T[] arr, int lo, int hi) {
+	private static <T extends Comparable<? super T>> T findPivot(T[] arr, int lo, int hi) {
 		int mid = (lo + hi) / 2;
 		if (arr[mid].compareTo(arr[lo]) < 0)
 			Util.swap(arr, lo, mid);

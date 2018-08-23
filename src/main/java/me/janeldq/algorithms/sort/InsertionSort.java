@@ -8,18 +8,7 @@ package me.janeldq.algorithms.sort;
  */
 public class InsertionSort implements Sort {
 
-	private static InsertionSort instance;
-
-	private InsertionSort() {}
-
-	public static InsertionSort getInstance() {
-		if (instance == null) {
-			instance = new InsertionSort();
-		}
-		return instance;
-	}
-	
-	public <T extends Comparable<? super T>> void sort(T[] arr) {
+	public static <T extends Comparable<? super T>> void sort(T[] arr) {
 		int j;
 		for (int i = 1; i < arr.length; i++) {
 			T tmp = arr[i];
