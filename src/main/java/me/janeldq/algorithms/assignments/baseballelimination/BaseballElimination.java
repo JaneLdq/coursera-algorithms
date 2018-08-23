@@ -1,14 +1,8 @@
 package me.janeldq.algorithms.assignments.baseballelimination;
 
-import edu.princeton.cs.algs4.FlowEdge;
-import edu.princeton.cs.algs4.FlowNetwork;
-import edu.princeton.cs.algs4.FordFulkerson;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class BaseballElimination {
 
@@ -91,7 +85,8 @@ public class BaseballElimination {
         for (int i = 0; i < numberOfTeams; i++) {
             for (int j = 0; j <= i; j++) {
                 // s->Gij games left between i and j
-                network.addEdge(new FlowEdge(0, v, games[i][j]));
+                if (i == index || j == index) network.addEdge(new FlowEdge(0, v, 0));
+                else network.addEdge(new FlowEdge(0, v, games[i][j]));
                 network.addEdge(new FlowEdge(v, offset + i, Double.POSITIVE_INFINITY));
                 network.addEdge(new FlowEdge(v, offset + j, Double.POSITIVE_INFINITY));
                 teamA[v-1] = i;
@@ -103,10 +98,12 @@ public class BaseballElimination {
             network.addEdge(new FlowEdge(offset + i, numberOfVertex-1, capacity));
         }
         FordFulkerson ff = new FordFulkerson(network, 0, numberOfVertex-1);
+        boolean isEliminated = false;
         for (int i = 1; i < offset - 1; i++) {
             if (ff.inCut(i)) {
                 Iterable<FlowEdge> edges = network.adj(i);
                 for (FlowEdge edge: edges) {
+//                    System.out.println(edge.toString());
                     if (edge.other(i) == 0 && edge.residualCapacityTo(i) != 0) {
                         certificates.put(team, Arrays.asList(teamIndexes[teamA[i-1]], teamIndexes[teamB[i-1]]));
                         return true;
@@ -120,6 +117,7 @@ public class BaseballElimination {
     private boolean isTrivialElimination(String team) {
         if (!teams.containsKey(team)) throw new IllegalArgumentException();
         int index = teams.get(team);
+        boolean isEliminated = false;
         for (int i = 0; i < numberOfTeams; i++) {
             if (i == index) continue;
             if (wins[index] + remaining[index] < wins[i]) {
