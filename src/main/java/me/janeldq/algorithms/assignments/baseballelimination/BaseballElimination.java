@@ -60,22 +60,22 @@ public class BaseballElimination {
     }
 
     public int wins(String team) {
-        if (!teams.keySet().contains(team)) throw new IllegalArgumentException();
+        if (!teams.containsKey(team)) throw new IllegalArgumentException();
         return wins[teams.get(team)];
     }
 
     public int losses(String team) {
-        if (!teams.keySet().contains(team)) throw new IllegalArgumentException();
+        if (!teams.containsKey(team)) throw new IllegalArgumentException();
         return losses[teams.get(team)];
     }
 
     public int remaining(String team) {
-        if (!teams.keySet().contains(team)) throw new IllegalArgumentException();
+        if (!teams.containsKey(team)) throw new IllegalArgumentException();
         return remaining[teams.get(team)];
     }
 
     public int against(String team1, String team2) {
-        if (!teams.keySet().contains(team1) || !teams.keySet().contains(team2)) throw new IllegalArgumentException();
+        if (!teams.containsKey(team1) || !teams.containsKey(team2)) throw new IllegalArgumentException();
         return games[teams.get(team1)][teams.get(team2)];
     }
 
@@ -118,7 +118,7 @@ public class BaseballElimination {
     }
 
     private boolean isTrivialElimination(String team) {
-        if (!teams.keySet().contains(team)) throw new IllegalArgumentException();
+        if (!teams.containsKey(team)) throw new IllegalArgumentException();
         int index = teams.get(team);
         for (int i = 0; i < numberOfTeams; i++) {
             if (i == index) continue;
@@ -131,7 +131,7 @@ public class BaseballElimination {
     }
 
     public Iterable<String> certificateOfElimination(String team) {
-        if (!teams.keySet().contains(team)) throw new IllegalArgumentException();
+        if (!teams.containsKey(team)) throw new IllegalArgumentException();
         if (certificates.get(team) == null) {
             isEliminated(team);
         }
