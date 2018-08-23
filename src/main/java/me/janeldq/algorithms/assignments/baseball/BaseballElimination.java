@@ -1,8 +1,13 @@
-package me.janeldq.algorithms.assignments.baseballelimination;
+package me.janeldq.algorithms.assignments.baseball;
+import edu.princeton.cs.algs4.Bag;
+import edu.princeton.cs.algs4.FlowEdge;
+import edu.princeton.cs.algs4.FlowNetwork;
+import edu.princeton.cs.algs4.FordFulkerson;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.In;
 
-import edu.princeton.cs.algs4.*;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseballElimination {
 
@@ -20,7 +25,7 @@ public class BaseballElimination {
 
     private final int[][] games;
 
-    private final Map<String, Iterable<String>> certificates;
+    private final Map<String, Bag<String>> certificates;
 
     public BaseballElimination(String filename) {
         In in = new In(filename);
@@ -79,8 +84,6 @@ public class BaseballElimination {
         int index = teams.get(team);
         int offset = (numberOfTeams) * (numberOfTeams + 1) / 2 + 1;
         int v = 1;
-        int[] teamA = new int[(numberOfTeams) * (numberOfTeams + 1) / 2];
-        int[] teamB = new int[(numberOfTeams) * (numberOfTeams + 1) / 2];
         FlowNetwork network = new FlowNetwork(numberOfVertex);
         for (int i = 0; i < numberOfTeams; i++) {
             for (int j = 0; j <= i; j++) {
@@ -89,29 +92,35 @@ public class BaseballElimination {
                 else network.addEdge(new FlowEdge(0, v, games[i][j]));
                 network.addEdge(new FlowEdge(v, offset + i, Double.POSITIVE_INFINITY));
                 network.addEdge(new FlowEdge(v, offset + j, Double.POSITIVE_INFINITY));
-                teamA[v-1] = i;
-                teamB[v-1] = j;
                 v++;
             }
             // if i == index, means self to self, so set capacity to zero to cut off this path
             int capacity = i == index ? 0 : wins[index] + remaining[index] - wins[i];
             network.addEdge(new FlowEdge(offset + i, numberOfVertex-1, capacity));
         }
-        FordFulkerson ff = new FordFulkerson(network, 0, numberOfVertex-1);
-        boolean isEliminated = false;
-        for (int i = 1; i < offset - 1; i++) {
-            if (ff.inCut(i)) {
-                Iterable<FlowEdge> edges = network.adj(i);
-                for (FlowEdge edge: edges) {
-//                    System.out.println(edge.toString());
-                    if (edge.other(i) == 0 && edge.residualCapacityTo(i) != 0) {
-                        certificates.put(team, Arrays.asList(teamIndexes[teamA[i-1]], teamIndexes[teamB[i-1]]));
-                        return true;
-                    }
-                }
+        int s = 0, t = numberOfVertex - 1;
+        FordFulkerson ff = new FordFulkerson(network, s, t);
+        Iterable<FlowEdge> edges = network.adj(s);
+        for (FlowEdge edge: edges) {
+            if (edge.residualCapacityTo(edge.other(s)) > 0) {
+                getCertificateOfElimination(ff, team);
+                return true;
             }
         }
         return false;
+    }
+
+    private void getCertificateOfElimination(FordFulkerson ff, String team) {
+        int offset = (numberOfTeams) * (numberOfTeams + 1) / 2 + 1;
+        for (String curTeam: teams()) {
+            int idx = teams.get(curTeam);
+            if (ff.inCut(idx + offset)) {
+                Bag<String> bag = certificates.get(team);
+                if (bag == null) bag = new Bag<>();
+                bag.add(curTeam);
+                certificates.put(team, bag);
+            }
+        }
     }
 
     private boolean isTrivialElimination(String team) {
@@ -121,11 +130,14 @@ public class BaseballElimination {
         for (int i = 0; i < numberOfTeams; i++) {
             if (i == index) continue;
             if (wins[index] + remaining[index] < wins[i]) {
-                certificates.put(team, Arrays.asList(teamIndexes[i]));
-                return true;
+                Bag<String> bag = certificates.get(team);
+                if (bag == null) bag = new Bag<>();
+                bag.add(teamIndexes[i]);
+                certificates.put(team, bag);
+                isEliminated = true;
             }
         }
-        return false;
+        return isEliminated;
     }
 
     public Iterable<String> certificateOfElimination(String team) {
