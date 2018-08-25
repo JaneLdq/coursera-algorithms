@@ -9,6 +9,17 @@ import edu.princeton.cs.algs4.In;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Algorithms Part 2 Week 3 Programming Assignment: Baseball Elimination
+ * Given the standings in a sports division at some point during the season,
+ * determine which teams have been mathematically eliminated from winning their division.
+ *
+ * Detailed Problem description can be found with the url below:
+ * http://coursera.cs.princeton.edu/algs4/assignments/baseball.html
+ *
+ * @author Jane
+ *
+ */
 public class BaseballElimination {
 
     private final int numberOfTeams;
