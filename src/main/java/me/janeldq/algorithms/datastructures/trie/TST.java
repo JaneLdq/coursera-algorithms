@@ -92,13 +92,39 @@ public class TST<T> {
     }
 
     public Iterable<String> keysThatMatch(String pat) {
-        // TODO
-        return null;
+        Queue<String> q = new LinkedQueue<>();
+        collect(root, "", pat, 0, q);
+        return q;
+    }
+
+    private void collect(Node x, String pre, String pat, int d, Queue<String> q) {
+        if (x == null) return;
+        if (pat.length() == 0) return;
+        char c = pat.charAt(d);
+        if (c == '.' || c > x.c) collect(x.right, pre, pat, d, q);
+        if (c == '.' || c < x.c) collect(x.left, pre, pat, d, q);
+        if (c == '.' || c == x.c) {
+            if (d == pat.length() - 1 && x.val != null) q.enqueue(pre + x.c);
+            if (d < pat.length() - 1) collect(x.mid, pre + x.c, pat, d + 1, q);
+        }
+        return;
     }
 
     public String longestPrefixOf(String s) {
-        // TODO
-        return null;
+        int len = search(root, s, 0, 0);
+        return s.substring(0, len);
+    }
+
+    private int search(Node x, String s, int d, int len) {
+        if (x == null) return len;
+        char c = s.charAt(d);
+        if (c > x.c) len = search(x.right, s, d, len);
+        else if (c < x.c) len = search(x.left, s, d, len);
+        else {
+            if (d == s.length() - 1) return s.length();
+            return search(x.mid, s, d + 1, ++len);
+        }
+        return len;
     }
 
 }

@@ -38,4 +38,32 @@ public class TstTest {
 
         Assert.assertTrue(true);
     }
+
+    @Test
+    public void testKeysThatMatch() {
+        TST<Integer> tst = new TST<>();
+        tst.put("look", 1);
+        tst.put("lock", 2);
+        tst.put("rock", 3);
+        Iterable<String> keys = tst.keysThatMatch(".o.k");
+        for (String s: keys) {
+            System.out.print(s + " ");
+        }
+        System.out.println();
+        keys = tst.keysThatMatch(".ock");
+        for (String s: keys) {
+            System.out.print(s + " ");
+        }
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void testLongestPrefix() {
+        TST<Integer> tst = new TST<>();
+        tst.put("she", 1);
+        tst.put("shoe", 2);
+        tst.put("sheep", 3);
+        String pre = tst.longestPrefixOf("aow");
+        Assert.assertEquals("", pre);
+    }
 }
