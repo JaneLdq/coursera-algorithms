@@ -13,7 +13,7 @@ package me.janeldq.algorithms.datastructures.stringsearch;
  *      when a mismatch is detected.
  *
  * KMP search accesses no more than M + N characters to search for a
- * pattern of length M in a text of length N
+ * pattern of length M in a text of length N.
  *
  */
 public class KMP {

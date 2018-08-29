@@ -4,7 +4,7 @@ package me.janeldq.algorithms.datastructures.stringsearch;
  * Brute-force substring search requires ~NM character compares to
  * search for a pattern of length M in a text of length N, in the worst case.
  */
-public class BruteForceSubstringSearch {
+public class BruteForce {
 
     public static int search(String pat, String txt) {
         int m = pat.length();

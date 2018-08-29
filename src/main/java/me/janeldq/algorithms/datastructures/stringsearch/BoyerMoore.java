@@ -2,7 +2,22 @@ package me.janeldq.algorithms.datastructures.stringsearch;
 
 /**
  * Boyer-Moore substring search
- * scanning the pattern from right to left
+ * by scanning the pattern from right to left.
+ *
+ * This algorithm provides a linear-time worst-case guarantee.
+ *
+ * On typical inputs, substring search with this algorithm uses
+ * ~N/M character compares to search for a pattern of length M
+ * in a text of length N.
+ *
+ * -----------------------------------------------------------
+ * Operation count for mismatched   |
+ * char heuristic only              |
+ * ---------------------------------|   Extra space
+ * guarantee        | typical       |
+ * -----------------------------------------------------------
+ * MN               | N / M         | R
+ * -----------------------------------------------------------
  *
  */
 public class BoyerMoore {
@@ -38,8 +53,11 @@ public class BoyerMoore {
                     // if the character cause mismatch is not found in the patter,
                     // slide the pattern j + 1 position, right[c] = -1, skip = j + 1
                     // else if the character is found in pattern, line up the pattern to
-                    // let that character match ist rightmost occurrence in the pattern
+                    // let that character match ist rightmost occurrence in the pattern.
                     skip = j - right[txt.charAt(i + j)];
+                    // if skip would not increase i, however stay or skip back makes no
+                    // sense (all the txt start at less then i is already checked),
+                    // we just increment i instead.
                     if (skip < 1) skip = 1;
                     break;
                 }

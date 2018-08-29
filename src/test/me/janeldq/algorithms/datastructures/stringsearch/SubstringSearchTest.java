@@ -9,10 +9,10 @@ public class SubstringSearchTest {
     public void testBruteForce() {
         String pat = "was";
         String txt = "Alice was beginning to get very tired of sitting by her sister";
-        int index = BruteForceSubstringSearch.search(pat, txt);
+        int index = BruteForce.search(pat, txt);
         Assert.assertEquals(6, index);
         pat = "bro";
-        index = BruteForceSubstringSearch.search(pat, txt);
+        index = BruteForce.search(pat, txt);
         Assert.assertEquals(62, index);
     }
 
@@ -31,6 +31,15 @@ public class SubstringSearchTest {
         String txt = "AABRAACADABRAACAADABRA";
         BoyerMoore bm = new BoyerMoore(pattern);
         int index = bm.search(txt);
+        Assert.assertEquals(4, index);
+    }
+
+    @Test
+    public void testRabinKarp() {
+        String pattern = "AACADA";
+        String txt = "AABRAACADABRAACAADABRA";
+        RabinKarp rk = new RabinKarp(pattern);
+        int index = rk.search(txt);
         Assert.assertEquals(4, index);
     }
 }
