@@ -24,4 +24,13 @@ public class SubstringSearchTest {
         int index = kmp.search(txt);
         Assert.assertEquals(4, index);
     }
+
+    @Test
+    public void testBoyerMoore() {
+        String pattern = "AACADA";
+        String txt = "AABRAACADABRAACAADABRA";
+        BoyerMoore bm = new BoyerMoore(pattern);
+        int index = bm.search(txt);
+        Assert.assertEquals(4, index);
+    }
 }
