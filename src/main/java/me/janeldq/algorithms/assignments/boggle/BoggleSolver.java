@@ -2,7 +2,6 @@ package me.janeldq.algorithms.assignments.boggle;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.TrieST;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,11 +14,11 @@ public class BoggleSolver {
             {0, 1}, {1, -1}, {1, 0}, {1, 1}
     };
 
-    private final TrieST<Integer> dictTrie;
+    private final MyTrieST<Integer> dictTrie;
 
     public BoggleSolver(String[] dictionary) {
         if (dictionary == null) throw new IllegalArgumentException();
-        dictTrie = new TrieST<>();
+        dictTrie = new MyTrieST<>();
         for (String s: dictionary) {
             dictTrie.put(s, 1);
         }
@@ -45,7 +44,6 @@ public class BoggleSolver {
     }
 
     private void collect(BoggleBoard board, int[][] marked, StringBuilder sb, int i, int j, Set<String> words) {
-        // out of index
         if (i < 0 || j < 0 || i > board.rows() - 1 || j > board.cols() - 1) return;
         if (marked[i][j] == 1) return;
         marked[i][j] = 1;
@@ -53,7 +51,7 @@ public class BoggleSolver {
         String str = sb.toString().replace("Q", "QU");
         // when the current path corresponds to a string that is not a prefix of any word in the dictionary,
         // there is no need to expand the path further.
-        if (dictTrie.keysWithPrefix(str).iterator().hasNext()) {
+        if (dictTrie.keysWithPrefix(str)) {
             // if length of current word >= 3 and is in dictionary then it is a valid word
             if (str.length() >= 3 && dictTrie.contains(str)) words.add(str);
             // add next character
