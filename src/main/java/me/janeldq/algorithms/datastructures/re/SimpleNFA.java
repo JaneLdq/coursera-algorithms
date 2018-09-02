@@ -21,6 +21,10 @@ public class SimpleNFA {
      * proportional to M in the worst case.
      */
     public SimpleNFA(String regexp) {
+        /**
+         * Use a stack to remember the ( to implement closure and or,
+         * and remember | to implement or.
+         */
         Stack<Integer> ops  = new Stack<>();
         re = regexp.toCharArray();
         M = re.length;
@@ -50,11 +54,12 @@ public class SimpleNFA {
                     lp = or;
                 }
             }
+            /**
+             * For closure (*), we add 3 ϵ-transitions,
+             *  i) to and from the corresponding left parenthesis.
+             *  ii) to next state (see in the last `if` condition).
+             */
             if (i < M - 1 && re[i + 1] == '*') { // look ahead to check for closure
-                /**
-                 * For closure (*), we add two ϵ-transitions,
-                 * to and from the corresponding left parenthesis.
-                 */
                 G.addEdge(lp, i + 1);
                 G.addEdge(i + 1, lp);
             }
