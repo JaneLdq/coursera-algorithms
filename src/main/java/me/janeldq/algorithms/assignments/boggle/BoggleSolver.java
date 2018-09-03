@@ -7,6 +7,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Algorithms Part 2 Week 4 Programming Assignment: Boggle Solver Elimination
+ * Write a program to play the word game Boggle.
+ *
+ * Detailed Problem description can be found with the url below:
+ * http://coursera.cs.princeton.edu/algs4/assignments/boggle.html
+ *
+ * @author Jane
+ *
+ */
 public class BoggleSolver {
 
     private static final int[][] ADJ_POSITION = {
