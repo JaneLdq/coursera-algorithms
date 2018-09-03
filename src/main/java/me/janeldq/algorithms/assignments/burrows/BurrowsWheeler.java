@@ -2,6 +2,9 @@ package me.janeldq.algorithms.assignments.burrows;
 
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
+import edu.princeton.cs.algs4.Queue;
+
+import java.util.ArrayList;
 
 /**
  * Move-to-front encoding and decoding
@@ -38,12 +41,13 @@ public class BurrowsWheeler {
         int first = BinaryStdIn.readInt();
         StringBuilder sb = new StringBuilder();
         while(!BinaryStdIn.isEmpty()) {
-            sb.append(BinaryStdIn.readChar());
+            char c = BinaryStdIn.readChar();
+            sb.append(c);
         }
         String s = sb.toString();
         char[] t = s.toCharArray();
-        char[] sorted = sort(t);
-        int[] next = next(t, sorted);
+        int[] next = new int[t.length];
+        char[] sorted = sort(t, next);
         BinaryStdOut.write(sorted[first]);
         int pos = first;
         for (int i = 1; i < t.length; i++) {
@@ -53,30 +57,26 @@ public class BurrowsWheeler {
         BinaryStdOut.close();
     }
 
-    private static int[] next(char[] t, char[] sorted) {
-        int n = t.length;
-        int[] next = new int[n];
-        boolean[] marked = new boolean[n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!marked[j] && sorted[i] == t[j]) {
-                    next[i] = j;
-                    marked[j] = true;
-                    break;
-                }
-            }
-        }
-        return next;
-    }
-
-    private static char[] sort(char[] a) {
+    private static char[] sort(char[] a, int[] next) {
         int n = a.length;
         int R = 256;
         int[] count = new int[R + 1];
+        ArrayList<Queue<Integer>> indices = new ArrayList<>(R);
         char[] aux = new char[n];
-        for (int i = 0; i < n; i++) count[a[i] + 1]++;
+        for (int i = 0; i < R; i++) {
+            indices.add(i, new Queue<>());
+        }
+        for (int i = 0; i < n; i++) {
+            count[a[i] + 1]++;
+            Queue<Integer> q = indices.get(a[i]);
+            q.enqueue(i);
+        }
         for (int r = 0; r < R; r++) count[r + 1] += count[r];
-        for (int i = 0; i < n; i++) aux[count[a[i]]++] = a[i];
+        for (int i = 0; i < n; i++) {
+            aux[count[a[i]]++] = a[i];
+            int index = indices.get(a[i]).dequeue();
+            next[count[a[i]] - 1] = index;
+        }
         return aux;
     }
 

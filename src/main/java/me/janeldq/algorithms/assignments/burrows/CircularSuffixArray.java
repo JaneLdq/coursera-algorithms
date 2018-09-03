@@ -5,18 +5,15 @@ import java.util.Arrays;
 
 public class CircularSuffixArray {
 
-    private final String s;
-
     private final int n; // length of s
 
-    private char[] chars;
+    private final char[] chars;
 
-    private Integer[] indices;
+    private final Integer[] indices;
 
     public CircularSuffixArray(String s) {
         if (s == null) throw new IllegalArgumentException();
-        this.s = s;
-        this.n = s.length();
+        n = s.length();
         chars = s.toCharArray();
         indices = new Integer[n];
         for (int i = 0; i < n; i++) {

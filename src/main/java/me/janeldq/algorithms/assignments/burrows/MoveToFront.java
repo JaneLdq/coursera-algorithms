@@ -3,8 +3,6 @@ package me.janeldq.algorithms.assignments.burrows;
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
 
-import java.util.Arrays;
-
 public class MoveToFront {
 
     public static void encode() {
@@ -15,35 +13,36 @@ public class MoveToFront {
         }
         while(!BinaryStdIn.isEmpty()) {
             char c = BinaryStdIn.readChar();
+            char idx = 0;
             for (char i = 0; i < R; i++) {
                 if (ascii[i] == c) {
+                    idx = i;
                     BinaryStdOut.write(i);
-                    swap(ascii, 0, i);
-                    System.out.println(Arrays.toString(ascii));
                     break;
                 }
             }
+            for (char i = idx; i > 0; i--) {
+                ascii[i] = ascii[i - 1];
+            }
+            ascii[0] = c;
         }
         BinaryStdOut.close();
     }
 
-    private static void swap(int[] arr, int i, int j) {
-        if (i == j) return;
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
     public static void decode() {
         int R = 256;
-        int[] ascii = new int[R];
+        char[] ascii = new char[R];
         for (char i = 0; i < R; i++) {
             ascii[i] = i;
         }
         while(!BinaryStdIn.isEmpty()) {
             char index = BinaryStdIn.readChar();
-            BinaryStdOut.write(ascii[index]);
-            swap(ascii, 0, index);
+            char c = ascii[index];
+            BinaryStdOut.write(c);
+            for (char i = index; i > 0; i--) {
+                ascii[i] = ascii[i - 1];
+            }
+            ascii[0] = c;
         }
         BinaryStdOut.close();
     }
