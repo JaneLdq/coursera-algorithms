@@ -7,13 +7,26 @@ import edu.princeton.cs.algs4.Queue;
 import java.util.ArrayList;
 
 /**
- * Move-to-front encoding and decoding
+ * Algorithms Part 2 Week 5 Programming Assignment: Burrows–Wheeler Data Compression
+ * The Burrows–Wheeler compression algorithm consists of 3 algorithmic components:
  *
- * The main idea of move-to-front encoding is to maintain an ordered
- * sequence of the characters in the alphabet, and repeatedly read a
- * character from the input message, print out the position in which
- * that character appears, and move that character to the front of
- * the sequence.
+ * 1.   Burrows–Wheeler transform. Given a typical English text file, transform it
+ *      into a text file in which sequences of the same character occur near each
+ *      other many times.
+ *
+ * 2.   Move-to-front encoding. Given a text file in which sequences of the same
+ *      character occur near each other many times, convert it into a text file in
+ *      which certain characters appear more frequently than others.
+ *
+ * 3.   Huffman compression. Given a text file in which certain characters appear
+ *      more frequently than others, compress it by encoding frequently occurring
+ *      characters with short codewords and infrequently occurring characters with
+ *      long codewords.
+ *
+ * Detailed Problem description can be found with the url below:
+ * http://coursera.cs.princeton.edu/algs4/assignments/burrows.html
+ *
+ * @author Jane
  *
  */
 public class BurrowsWheeler {
@@ -73,9 +86,8 @@ public class BurrowsWheeler {
         }
         for (int r = 0; r < R; r++) count[r + 1] += count[r];
         for (int i = 0; i < n; i++) {
-            aux[count[a[i]]++] = a[i];
-            int index = indices.get(a[i]).dequeue();
-            next[count[a[i]] - 1] = index;
+            aux[count[a[i]]] = a[i];
+            next[count[a[i]]++] = indices.get(a[i]).dequeue();
         }
         return aux;
     }

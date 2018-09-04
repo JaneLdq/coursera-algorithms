@@ -3,6 +3,16 @@ package me.janeldq.algorithms.assignments.burrows;
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
 
+/**
+ * Move-to-front encoding and decoding
+ *
+ * The main idea of move-to-front encoding is to maintain an ordered
+ * sequence of the characters in the alphabet, and repeatedly read a
+ * character from the input message, print out the position in which
+ * that character appears, and move that character to the front of
+ * the sequence.
+ *
+ */
 public class MoveToFront {
 
     public static void encode() {

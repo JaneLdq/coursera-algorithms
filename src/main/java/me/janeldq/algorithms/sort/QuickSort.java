@@ -31,7 +31,18 @@ public class QuickSort implements Sort {
 				quicksort(arr, i+1, hi);
 			}
 		} else {
-			InsertionSort.sort(arr);
+			insertion(arr, lo, hi);
+		}
+	}
+
+	public static <T extends Comparable<? super T>> void insertion(T[] arr, int lo, int hi) {
+		int j;
+		for (int i = lo; i <= hi; i++) {
+			T tmp = arr[i];
+			for (j = i; j > lo && tmp.compareTo(arr[j-1]) < 0; j--) {
+				arr[j] = arr[j-1];
+			}
+			arr[j] = tmp;
 		}
 	}
 	

@@ -21,7 +21,10 @@ public class SortTester {
 	};
 	
 	public static void main(String[] args) throws Exception {
-		Integer[] arr = {0,1,2,3,4,5,6,7,8,9};
+		Integer[] arr = new Integer[100];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = i;
+		}
 		
 		for (int k = 0; k < sorters.length; k++) {
 			Class clazz = sorters[k];
