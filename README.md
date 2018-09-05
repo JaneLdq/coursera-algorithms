@@ -18,32 +18,30 @@ Exercises for [Algorithms, by Princeton University](https://www.coursera.org/lea
 * Week 4 - [Boggle](./src/main/java/me/janeldq/algorithms/assignments/boggle)
 * Week 5 - [Burrows-Wheeler](./src/main/java/me/janeldq/algorithms/assignments/burrows)
 
-
+---
 ### :mag: Sorting
+|General Sorts|String Sorts|
+|---|---|
+|[Bubble Sort](./src/main/java/me/janeldq/algorithms/sort/BubbleSort.java)|[LSD](./src/main/java/me/janeldq/algorithms/sort/LSDStringSort.java)|
+|[Heapsort](./src/main/java/me/janeldq/algorithms/sort/HeapSort.java)|[MSD](./src/main/java/me/janeldq/algorithms/sort/MSDStringSort.java)|
+|[Insertion Sort](./src/main/java/me/janeldq/algorithms/sort/InsertionSort.java)|[3-way Radix Quicksort](./src/main/java/me/janeldq/algorithms/sort/Quick3WayStringSort.java)|
+|[Merge Sort](./src/main/java/me/janeldq/algorithms/sort/MergeSort.java)||
+|[Quicksort](./src/main/java/me/janeldq/algorithms/sort/QuickSort.java)||
+|[Selection Sort](./src/main/java/me/janeldq/algorithms/sort/SelectionSort.java)||
+|[Shell Sort](./src/main/java/me/janeldq/algorithms/sort/ShellSort.java)||
 
-* General Sorts
-    * [Bubble Sort](./src/main/java/me/janeldq/algorithms/sort/BubbleSort.java)
-    * [Heapsort](./src/main/java/me/janeldq/algorithms/sort/HeapSort.java)
-    * [Insertion Sort](./src/main/java/me/janeldq/algorithms/sort/InsertionSort.java)
-    * [Selection Sort](./src/main/java/me/janeldq/algorithms/sort/SelectionSort.java)
-    * [Merge Sort](./src/main/java/me/janeldq/algorithms/sort/MergeSort.java)
-    * [Shell Sort](./src/main/java/me/janeldq/algorithms/sort/ShellSort.java)
-    * [Quicksort](./src/main/java/me/janeldq/algorithms/sort/QuickSort.java)
-    
-* String Sorts
-    * [LSD](./src/main/java/me/janeldq/algorithms/sort/LSDStringSort.java)
-    * [MSD](./src/main/java/me/janeldq/algorithms/sort/MSDStringSort.java)
-    * [3-way Radix Quicksort](./src/main/java/me/janeldq/algorithms/sort/Quick3WayStringSort.java)
-
-
-### :triangular_ruler: Data Structures
-* [Union Find](/src/main/java/me/janeldq/algorithms/datastructures/unionfind)
-* [List](/src/main/java/me/janeldq/algorithms/datastructures/list)
-* [Stacks](/src/main/java/me/janeldq/algorithms/datastructures/stack)
-* [Queues](/src/main/java/me/janeldq/algorithms/datastructures/queue)
-* [Heap](/src/main/java/me/janeldq/algorithms/datastructures/heap)
-* [Trie](/src/main/java/me/janeldq/algorithms/datastructures/trie)
-
+---
+### :triangular_ruler: Data Structures & Related Algorithms
+|Data Structures|Related Implementation & Algorithms|
+| --- | --- |
+|[Union Find](/src/main/java/me/janeldq/algorithms/datastructures/unionfind)|Quick-Find UF <br>Quick-Union UF<br> Weighted Quick Union UF<br> Quick Union with Path Compression|
+|[List](/src/main/java/me/janeldq/algorithms/datastructures/list)|Array List<br>Linked List|
+|[Stacks](/src/main/java/me/janeldq/algorithms/datastructures/stack)|Resizing Array Stack<br>Linked Stack|
+|[Queues](/src/main/java/me/janeldq/algorithms/datastructures/queue)|FIFO Queue<br>Dequeue|
+|[Priority Queue](/src/main/java/me/janeldq/algorithms/datastructures/heap)|Min Queue<br>Max Queue|
+|[MaxFlow-MinCut](/src/main/java/me/janeldq/algorithms/datastructures/flow)|Ford-Fulkerson Algorithm|
+|[Trie](/src/main/java/me/janeldq/algorithms/datastructures/trie)|Ternary Search Trie|
+|[String Search](/src/main/java/me/janeldq/algorithms/datastructures/stringserch)|Brute Force<br>Knuth-Morris-Pratt<br>Boyer Moore<br>Rabin-Karp Fingerprint Search|
 
 ---
 

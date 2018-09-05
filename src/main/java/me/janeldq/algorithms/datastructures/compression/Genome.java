@@ -10,24 +10,22 @@ import edu.princeton.cs.algs4.BinaryStdOut;
 public class Genome {
 
     public static void compress() {
-        Alphabet DNA = new Alphabet("ACTG");
         String s = BinaryStdIn.readString();
         int n = s.length();
         BinaryStdOut.write(n);
         for (int i = 0; i < n; i++) {
-            int d = DNA.toIndex(s.charAt(i));
-            BinaryStdOut.write(d, DNA.lgR());
+            int d = Alphabet.DNA.toIndex(s.charAt(i));
+            BinaryStdOut.write(d, Alphabet.DNA.lgR());
         }
         BinaryStdOut.close();
     }
 
     public static void expand() {
-        Alphabet DNA = new Alphabet("ACTG");
-        int w = DNA.lgR();
+        int w = Alphabet.DNA.lgR();
         int n = BinaryStdIn.readInt();
         for (int i = 0; i < n; i++) {
             char c = BinaryStdIn.readChar(w);
-            BinaryStdOut.write(DNA.toChar(c));
+            BinaryStdOut.write(Alphabet.DNA.toChar(c));
         }
         BinaryStdOut.close();
     }
