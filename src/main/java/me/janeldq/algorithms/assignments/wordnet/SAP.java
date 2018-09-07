@@ -1,12 +1,20 @@
 package me.janeldq.algorithms.assignments.wordnet;
 
-import edu.princeton.cs.algs4.*;
+
+import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 
 public class SAP {
 
     private final Digraph G;
 
-    private boolean[] marked;
+    private boolean[] markedFromV;
+
+    private boolean[] markedFromW;
 
     private int[] distToFromV;
 
@@ -15,10 +23,12 @@ public class SAP {
     // constructor takes a digraph (not necessarily a DAG)
     public SAP(Digraph G) {
         if (G == null) throw new IllegalArgumentException();
-        this.G = G;
-        marked = new boolean[G.V()];
-        distToFromV = new int[G.V()];
-        distToFromW = new int[G.V()];
+        // make a copy of G to be immutable
+        this.G = new Digraph(G);
+        markedFromV = new boolean[this.G.V()];
+        markedFromW = new boolean[this.G.V()];
+        distToFromV = new int[this.G.V()];
+        distToFromW = new int[this.G.V()];
     }
 
     // length of shortest ancestral path between v and w; -1 if no such path
@@ -47,55 +57,64 @@ public class SAP {
         reset();
         Queue<Integer> q = new Queue<>();
         q.enqueue(v);
-        marked[v] = true;
+        markedFromV[v] = true;
         distToFromV[v] = 0;
         Node result = new Node(-1, -1);
         boolean stop = false;
-        while(!q.isEmpty() && !stop) {
+        while (!q.isEmpty() && !stop) {
             int cur = q.dequeue();
             for (int vertex: G.adj(cur)) {
-                if (!marked[vertex]) {
+                if (!markedFromV[vertex]) {
                     if (vertex == w) {
                         result.ancestor = vertex;
                         result.shortestLen = distToFromV[cur] + 1;
+                        distToFromV[vertex] = distToFromV[cur] + 1;
+                        markedFromV[vertex] = true;
                         stop = true;
                         break;
                     }
                     q.enqueue(vertex);
-                    marked[vertex] = true;
+                    markedFromV[vertex] = true;
                     distToFromV[vertex] = distToFromV[cur] + 1;
                 }
             }
         }
-        q.enqueue(w);
         int minLen = Integer.MAX_VALUE;
-        marked[w] = true;
+        if (stop) {
+            minLen = result.shortestLen;
+        }
+        q = new Queue<>();
+        q.enqueue(w);
+        markedFromW[w] = true;
         distToFromW[w] = 0;
         stop = false;
         while (!q.isEmpty() && !stop) {
             int cur = q.dequeue();
             for (int vertex: G.adj(cur)) {
-                if (marked[vertex]) {
-                    int tempLen = distToFromV[vertex] + distToFromW[cur] + 1;
-                    if (minLen > tempLen) {
-                        minLen = tempLen;
-                        result.ancestor = vertex;
-                        result.shortestLen = minLen;
-                    }
-                } else {
-                    if (vertex == v) {
-                        result.ancestor = vertex;
-                        result.shortestLen = distToFromW[cur] + 1;
-                        stop = true;
+                if (!markedFromW[vertex]) {
+                    if (markedFromV[vertex]) {
+                        int tempLen = distToFromV[vertex] + distToFromW[cur] + 1;
+                        if (minLen > tempLen) {
+                            minLen = tempLen;
+                            result.ancestor = vertex;
+                            result.shortestLen = minLen;
+                        }
+                    } else {
+                        if (vertex == v) {
+                            result.ancestor = vertex;
+                            result.shortestLen = distToFromW[cur] + 1;
+                            stop = true;
+                            break;
+                        }
                     }
                     q.enqueue(vertex);
-                    marked[vertex] = true;
+                    markedFromW[vertex] = true;
                     distToFromW[vertex] = distToFromW[cur] + 1;
                 }
             }
         }
         if (!stop) {
-            result.shortestLen = minLen == Integer.MAX_VALUE ? -1: minLen;
+            result.shortestLen = minLen == Integer.MAX_VALUE ? -1 : minLen;
         }
         return result;
     }
@@ -115,27 +134,29 @@ public class SAP {
     }
 
     private Node ancestorAndLength(Iterable<Integer> v, Iterable<Integer> w) {
-        BreadthFirstDirectedPaths vpaths = new BreadthFirstDirectedPaths(G, v);
-        BreadthFirstDirectedPaths wpaths = new BreadthFirstDirectedPaths(G, w);
+        BreadthFirstDirectedPaths vp = new BreadthFirstDirectedPaths(G, v);
+        BreadthFirstDirectedPaths wp = new BreadthFirstDirectedPaths(G, w);
         Node node = new Node(-1, -1);
         int minLen = Integer.MAX_VALUE;
         for (int i = 0; i < G.V(); i++) {
-            if (vpaths.hasPathTo(i) && wpaths.hasPathTo(i)) {
-                int vLen = vpaths.distTo(i);
-                int wLen = wpaths.distTo(i);
+            if (vp.hasPathTo(i) && wp.hasPathTo(i)) {
+                int vLen = vp.distTo(i);
+                int wLen = wp.distTo(i);
                 if (vLen + wLen < minLen) {
                     minLen = vLen + wLen;
                     node.ancestor = i;
-                    node.shortestLen = minLen;
                 }
             }
         }
+        if (minLen == Integer.MAX_VALUE) node.shortestLen = -1;
+        else node.shortestLen = minLen;
         return node;
     }
 
     private void reset() {
         for (int i = 0; i < G.V(); i++) {
-            marked[i] = false;
+            markedFromV[i] = false;
+            markedFromW[i] = false;
             distToFromV[i] = Integer.MAX_VALUE;
             distToFromW[i] = Integer.MAX_VALUE;
         }
@@ -148,7 +169,7 @@ public class SAP {
     private void validate(Iterable<Integer> v) {
         if (v == null) throw new IllegalArgumentException();
         for (Integer i: v) {
-            validate(i);
+            if (i == null || i < 0 || i >= G.V()) throw new IllegalArgumentException();
         }
     }
 
