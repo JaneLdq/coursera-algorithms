@@ -16,9 +16,7 @@ import java.awt.Color;
  */
 public class SeamCarver {
 
-    private int[][][] pixals;
-
-    private int[][][] transPixals;
+    private int[][] pixals;
 
     private int width;
 
@@ -30,17 +28,11 @@ public class SeamCarver {
         }
         width = picture.width();
         height = picture.height();
-        pixals = new int[height][width][3];
-        transPixals = new int[width][height][3];
+        pixals = new int[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 Color c = picture.get(j, i);
-                pixals[i][j][0] = c.getRed();
-                pixals[i][j][1] = c.getGreen();
-                pixals[i][j][2] = c.getBlue();
-                transPixals[j][i][0] = c.getRed();
-                transPixals[j][i][1] = c.getGreen();
-                transPixals[j][i][2] = c.getBlue();
+                pixals[i][j] = c.getRGB();
             }
         }
     }
@@ -49,8 +41,8 @@ public class SeamCarver {
         Picture pic = new Picture(width, height);
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                int[] rgb = pixals[i][j];
-                pic.set(j, i, new Color(rgb[0], rgb[1], rgb[2]));
+                int rgb = pixals[i][j];
+                pic.set(j, i, new Color(rgb));
             }
         }
         return pic;
@@ -69,24 +61,44 @@ public class SeamCarver {
             throw new IllegalArgumentException("Index out of range");
         }
         if (x == 0 || x == width() - 1 || y == 0 || y == height() - 1) return 1000.0;
-        int[] cXL = pixals[y][x-1];
-        int[] cXR = pixals[y][x+1];
-        int[] cXU = pixals[y-1][x];
-        int[] cXD = pixals[y+1][x];
-        double deltaX = Math.pow(cXL[0] - cXR[0], 2)
-                + Math.pow(cXL[1] - cXR[1], 2)
-                + Math.pow(cXL[2] - cXR[2], 2);
-        double deltaY = Math.pow(cXU[0] - cXD[0], 2)
-                + Math.pow(cXU[1] - cXD[1], 2)
-                + Math.pow(cXU[2] - cXD[2], 2);
+        Color cXL = new Color(pixals[y][x-1]);
+        Color cXR = new Color(pixals[y][x+1]);
+        Color cXU = new Color(pixals[y-1][x]);
+        Color cXD = new Color(pixals[y+1][x]);
+        double deltaX = Math.pow(cXL.getRed() - cXR.getRed(), 2)
+                + Math.pow(cXL.getGreen() - cXR.getGreen(), 2)
+                + Math.pow(cXL.getBlue() - cXR.getBlue(), 2);
+        double deltaY = Math.pow(cXU.getRed() - cXD.getRed(), 2)
+                + Math.pow(cXU.getGreen() - cXD.getGreen(), 2)
+                + Math.pow(cXU.getBlue() - cXD.getBlue(), 2);
         return Math.sqrt(deltaX + deltaY);
     }
 
     public int[] findHorizontalSeam() {
-        transposePicture();
-        int[] seam = findVerticalSeam();
-        transposePicture();
-        return seam;
+        double[][] energy = new double[width][height];
+        double[][] distTo = new double[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                energy[i][j] = energy(width - i - 1, j);
+                distTo[i][j] = i == 0 ? energy[i][j] : Double.POSITIVE_INFINITY;
+            }
+        }
+        int[][] edgeTo = new int[width][height];
+        // Topological order
+        for (int i = 0; i < width - 1; i++) {
+            for (int j = 0; j < height; j++) {
+                // get Picture[i][j]'s adj [i+1][j-1], [i+1][j], [i][j+1]
+                relax(energy, distTo, edgeTo, j, i, height);
+            }
+        }
+
+        // need to reverse the seam arr
+        int[] seam = findSeam(energy, edgeTo, height, width);
+        int[] reverseSeam = new int[width];
+        for (int i = 0; i < width; i++) {
+            reverseSeam[i] = seam[width - 1 - i];
+        }
+        return  reverseSeam;
     }
 
     public int[] findVerticalSeam() {
@@ -99,16 +111,18 @@ public class SeamCarver {
             }
         }
         int[][] edgeTo = new int[height][width];
-        int[] seam = new int[height];
         // Topological order
         for (int i = 0; i < height - 1; i++) {
             for (int j = 0; j < width; j++) {
                 // get Picture[i][j]'s adj [i+1][j-1], [i+1][j], [i][j+1]
-                relax(energy, distTo, edgeTo, j, i);
+                relax(energy, distTo, edgeTo, j, i, width);
             }
         }
-        double[] minEnergy = new double[width];
+        return findSeam(energy, edgeTo, width, height);
+    }
 
+    private int[] findSeam(double[][] energy, int[][]edgeTo, int width, int height) {
+        double[] minEnergy = new double[width];
         for (int i = 0; i < width; i++) {
             minEnergy[i] = energy[height - 1][i];
             int w = i;
@@ -121,6 +135,8 @@ public class SeamCarver {
         for (int i = 1; i < minEnergy.length; i++) {
             if (minEnergy[i] < minEnergy[k]) k = i;
         }
+
+        int[] seam = new int[height];
         seam[height - 1] = k;
         for (int i = height - 1; i > 0; i--) {
             k = k - edgeTo[i][k];
@@ -129,7 +145,7 @@ public class SeamCarver {
         return seam;
     }
 
-    private void relax(double[][] energy, double[][] distTo, int[][] edgeTo, int x, int y) {
+    private void relax(double[][] energy, double[][] distTo, int[][] edgeTo, int x, int y, int width) {
         if (x > 0) {
             if (distTo[y+1][x-1] > distTo[y][x] + energy[y+1][x-1]) {
                 distTo[y+1][x-1] = distTo[y][x] + energy[y+1][x-1];
@@ -152,9 +168,12 @@ public class SeamCarver {
         if (height() <= 1 || seam == null || seam.length != width() || !checkSeam(seam, height()-1)) {
             throw new IllegalArgumentException("seam is null or invalid.");
         }
-        transposePicture();
-        removeVerticalSeam(seam);
-        transposePicture();
+        for (int i = 0; i < width; i++) {
+            for (int j = seam[i]; j < height - 1; j++) {
+                pixals[j][i] = pixals[j + 1][i];
+            }
+        }
+        height--;
     }
 
     public void removeVerticalSeam(int[] seam) {
@@ -169,20 +188,6 @@ public class SeamCarver {
         width--;
     }
 
-    private void transposePicture() {
-        for (int col = 0; col < width; col++) {
-            for (int row = 0; row < height; row++) {
-                transPixals[col][row] = pixals[row][col];
-            }
-        }
-        int[][][] tmpPixals = pixals;
-        pixals = transPixals;
-        transPixals = tmpPixals;
-
-        int tmpWidth = width;
-        width = height;
-        height = tmpWidth;
-    }
 
     private boolean checkSeam(int[] seam, int max) {
         for (int i = 0; i < seam.length - 1; i++) {

@@ -30,7 +30,7 @@ public class PrintSeams {
     }
 
     public static void main(String[] args) {
-        String filename = "/Users/i321299/Downloads/seam/diagonals.png";
+        String filename = args[0];
         Picture picture = new Picture(filename);
         StdOut.printf("%s (%d-by-%d image)\n", filename, picture.width(), picture.height());
         StdOut.println();

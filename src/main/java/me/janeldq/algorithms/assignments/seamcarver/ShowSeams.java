@@ -21,7 +21,7 @@ public class ShowSeams {
     }
 
     public static void main(String[] args) {
-        String filename = "C:\\Users\\Jane\\Documents\\seam-testing\\seam\\HJocean.png";
+        String filename = args[0];
         Picture picture = new Picture(filename);
         StdOut.printf("image is %d columns by %d rows\n", picture.width(), picture.height());
         picture.show();
