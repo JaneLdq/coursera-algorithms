@@ -12,7 +12,7 @@ Exercises for [Algorithms, by Princeton University](https://www.coursera.org/lea
 * Week 5 - [Kd-Trees](./src/main/java/me/janeldq/algorithms/assignments/kdtree)
 
 #### Part II
-* Week 1 - WordNet
+* Week 1 - [WordNet](./src/main/java/me/janeldq/algorithms/assignments/wordnet)
 * Week 2 - [Seam Carving](./src/main/java/me/janeldq/algorithms/assignments/seamcarver)
 * Week 3 - [Baseball Elimination](./src/main/java/me/janeldq/algorithms/assignments/baseball)
 * Week 4 - [Boggle](./src/main/java/me/janeldq/algorithms/assignments/boggle)
